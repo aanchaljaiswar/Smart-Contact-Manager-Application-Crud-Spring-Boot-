@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<title>Home</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+</head>
+
+<body>
+   
+   <section>
+   <div class="container" >
+   <div class="row" >
+   
+   <div class="col-md-7 offset-md-3" >
+   
+   <div class="my-card mt-3 " id="addContact">
+   
+   <div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" 
+	role="alert">
+	<p class="text-center" th:text="${session.message.content}"></p>
+	<th:block th:removd="${#session.removeAttribute('message')}"></th:block>
+	</div>
+   
+   
+<div   class="container text-center" >
+
+<!-- Image On Register page  -->
+<img style="width:80px" alt="" src="" th:src="@{/image/membership.png}">
+<!--<img style="width:180px;height:70px" alt="" src="" th:src="@{/image/memberships.jpg}">  -->
+
+</div>
+   <h1 class="text-center">Register Here !!</h1>
+   
+    <form  th:action="@{/do_register}" class="rounded-form" action=""  method="post" th:object="${user}">
+   
+   <!-- name field -->
+   <div class="form-group">
+    <label for="name_field">Your Name</label>
+    <input name="name"type="text" 
+    class="form-control" 
+    th:classappend="${#fields.hasErrors('name') ? 'is-invalid':''}" 
+       id="name_field" aria-describedby="emailHelp" 
+       placeholder="Enter Here"
+       required
+       th:value="${user.name}"
+       >
+        <div class="invalid-feedback"
+        th:each="e:${#fields.errors('name')}" 
+        th:text="${e}">
+        
+        </div>
+  </div>
+ 
+  
+  
+   <!-- email field -->
+<div class="form-group">
+<label for="email_field">Your Email</label> 
+<input name="email"
+type="text" class="form-control"
+th:classappend="${#fields.hasErrors('email')?'is-invalid':''}"
+id="email_field" aria-describedby="emailHelp"
+placeholder="Enter Here" 
+required 
+th:value="${user.email}">
+
+<div th:each="e:${#fields.errors('email')}" 
+th:text="${e}"
+class="invalid-feedback">
+</div>
+
+</div>
+
+<!-- Password field -->
+   <div class="form-group">
+    <label for="password_field">Your Password</label>
+    <input name="password" type="password" 
+           class="form-control"
+    	th:classappend="${#fields.hasErrors('password')?'is-invalid':''}" 
+       id="password_field" aria-describedby="emailHelp" 
+       placeholder="Enter Here"
+       required
+       >
+        <div class="input-group-append" >
+    	<span class="input-group-text toggle-password" onclick="togglePasswordVisibility()">
+      <i class="fas fa-eye" id="show_eye"><span class="glyphicon glyphicon-eye-close">see</span></i>
+      <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+      </span>
+      </div>
+       <div 
+       class="invalid-feedback"
+       th:each="e:${#fields.errors('password')}" 
+       th:text="${e}"
+       >	
+      </div>
+
+  </div>
+  
+   <!-- user about  field -->
+  <div class="form-group">
+  <textarea th:classappend="${#fields.hasErrors('about')?'is-invalid':''}"name="about" th:text="${user.about}" rows="8" class="form-control" placeholder="Enter Something About YourSelf"></textarea>
+  <div  class="invalid-feedback" 
+  	    th:each="e:${#fields.errors('about')}" 
+  	    th:text="${e}">
+    
+  </div>
+  </div>
+  
+  <!-- terms and Condition agreement -->
+  <div class="form-group form-check text-center">
+  
+  <input type="checkbox" name="agreement" class="form-check-input" id="agreement" />
+  
+  <label for="agreement">Accept Terms and Conditions</label>
+  
+  </div>
+  
+  <div class="container text-center" >
+  <button type="submit" class="btn bg-primary text-white "> Submit</button>
+  <button type="reset" class="btn bg-warning"> Reset</button>
+  </div>
+   
+   <br>
+   <br>
+   </form>
+   
+   </div>
+
+   </div>
+   </div>
+   </div>
+   
+   </section>
+
+</body>
+</html>
